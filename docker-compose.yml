@@ -1,0 +1,28 @@
+version: '2'
+services:
+  newspaper-crawler:
+    image: rafatbiin/newspaper-scrapy
+    container_name: newspaper-crawler
+    volumes:
+      - ${PWD}:/app
+    working_dir: /app/crawler/crawler/runner
+    tty: true
+    depends_on:
+      - mongo
+    environment:
+      MONGODB_HOST: "mongo"
+      MONGODB_PORT: 27017
+      CRAWL_DEPTH: 2
+    command:
+      - python
+      - periodic_runner_all_spider.py
+
+  mongo:
+    image: mongo
+    stdin_open: true
+    container_name: mongodb-for-newspaper-crawler
+    volumes:
+      - ${PWD}/mongodb_data:/data/db
+    tty: true
+    ports:
+      - "9004:27017"

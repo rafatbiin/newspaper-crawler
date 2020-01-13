@@ -1,0 +1,3 @@
+[submodule "crawler/crawler/utils/newspaper"]
+	path = crawler/crawler/utils/newspaper
+	url = https://github.com/rafatbiin/newspaper.git
