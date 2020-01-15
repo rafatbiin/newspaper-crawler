@@ -12,13 +12,17 @@ Scrapy based crawler which crawls newspaper.
 $ git clone --recurse-submodules https://github.com/rafatbiin/newspaper-crawler.git
 ```
 
-- Open terminal inside of the project folder and run the docker-compose file:
+- Open terminal inside of the project folder.
+ 
+- checkout to [elasticsearch_pipeline](https://github.com/rafatbiin/newspaper-crawler/tree/elasticsearch_pipeline) branch.
+
+- run the docker-compose file:
 
 ```bash
 $ docker-compose up -d
 ```
 
-- Use any MongoDB Client to check the DB at ``` localhost:9004 ```
+- your elasticsearch server should be live at ``` localhost:9200 ```
 
 ### Configuration
 - The logs will be saved in a directory called **tmp** inside the [runner](https://github.com/rafatbiin/newspaper-crawler/tree/master/crawler/crawler/runner) package.
