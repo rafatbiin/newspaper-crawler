@@ -1,28 +1,28 @@
 version: '2'
 services:
   newspaper-crawler:
-    image: rafatbiin/newspaper-scrapy
+    image: rafatbiin/newspaper-scrapy:elasticsearch
     container_name: newspaper-crawler
     volumes:
       - ${PWD}:/app
     working_dir: /app/crawler/crawler/runner
     tty: true
     depends_on:
-      - mongo
+      - elasticsearch
     environment:
-      MONGODB_HOST: "mongo"
-      MONGODB_PORT: 27017
+      ELASTICSEARCH_SERVERS: 'http://elasticsearch:9200'
       CRAWL_DEPTH: 2
     command:
       - python
       - periodic_runner_all_spider.py
 
-  mongo:
-    image: mongo
-    stdin_open: true
-    container_name: mongodb-for-newspaper-crawler
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.5.1
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
     volumes:
-      - ${PWD}/mongodb_data:/data/db
-    tty: true
+      - ${PWD}/elasticsearch-data:/usr/share/elasticsearch/data
     ports:
-      - "9004:27017"
+      - 9200:9200
+      - 9300:9300

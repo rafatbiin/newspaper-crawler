@@ -30,14 +30,7 @@ BOT_NAME = 'newspaper-crawler'
 SPIDER_MODULES = ['crawler.spiders']
 NEWSPIDER_MODULE = 'crawler.spiders'
 
-
-# mongo db configuration
-MONGODB_HOST = os.environ.get('MONGODB_HOST') if os.environ.get('MONGODB_HOST') is not None else 'localhost'
-MONGODB_PORT = int(os.environ.get('MONGODB_PORT')) if os.environ.get('MONGODB_PORT') is not None else 9116
-MONGODB_NAME = 'newspaper_data'
-
 LOG_LEVEL = 'INFO'
-
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 USER_AGENT = 'Mozilla/5.0 (X11; Linux x86_64)'
@@ -53,7 +46,15 @@ DOWNLOAD_DELAY = 4
 
 ITEM_PIPELINES = {
     'crawler.pipelines.news_details_extractor.NewsDetailsExtractorPipeline': 200,
-    'crawler.pipelines.mongodb.MongoPipeline': 300,
+    'scrapyelasticsearch.scrapyelasticsearch.ElasticSearchPipeline': 300
 }
+
+ELASTICSEARCH_SERVERS = [os.environ.get('ELASTICSEARCH_SERVERS') if os.environ.get('ELASTICSEARCH_SERVERS') is not None \
+                             else 'http://localhost:9200']
+ELASTICSEARCH_INDEX = 'newspaper_data'
+ELASTICSEARCH_INDEX_DATE_FORMAT = '%Y-%m-%d'
+ELASTICSEARCH_TYPE = 'news'
+ELASTICSEARCH_UNIQ_KEY = 'md5'  # Custom unique key
+ELASTICSEARCH_BUFFER_LENGTH = 50
 
 AUTOTHROTTLE_ENABLED = True

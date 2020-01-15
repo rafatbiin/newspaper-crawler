@@ -10,10 +10,10 @@ __pycache__/
 
 #exclude mongo-data
 # exclude everything
-mongodb_data/*
+elasticsearch_data/*
 
 # exception to the rule
-!mongodb_data/.gitkeep
+!elasticsearch_data/.gitkeep
 
 #exclude everything
 tmp/
