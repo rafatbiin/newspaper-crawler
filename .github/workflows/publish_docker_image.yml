@@ -1,12 +1,11 @@
 name: Publish Docker Image to Dockerhub
 
-on:
-  push:
-    branches:
-      - master
+on: [push]
+
 jobs:
-  publish:
+  publish_master:
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
     steps:
       - uses: actions/checkout@v1
       - name: Publish to Registry
@@ -15,3 +14,16 @@ jobs:
           name: rafatbiin/newspaper-scrapy
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
+
+  publish_with_elasticsearch_pipeline:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/elasticsearch_pipeline'
+    steps:
+      - uses: actions/checkout@v1
+      - name: Publish to Registry
+        uses: elgohr/Publish-Docker-Github-Action@master
+        with:
+          name: rafatbiin/newspaper-scrapy
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          tags: "elasticsearch"
