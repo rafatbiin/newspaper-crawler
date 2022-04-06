@@ -41,7 +41,7 @@ tinydb==4.1.1
 tinysegmenter==0.4
 tldextract==2.2.2
 tqdm==4.48.2
-Twisted==20.3.0
+Twisted==22.2.0
 tzlocal==2.1
 urllib3==1.25.10
 w3lib==1.22.0
